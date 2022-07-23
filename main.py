@@ -36,12 +36,8 @@ with open('users.json', "r", encoding="UTF-8") as users_data:
             count = 0
             generator = books_borrowing(books)
 
-            while True:
-                try:
-                    new_book = next(generator)
-                    readers[count % number_of_readers]['books'].append(new_book)
-                    count += 1
-                except StopIteration:
-                    break
+            for book in generator:
+                readers[count % number_of_readers]['books'].append(book)
+                count += 1
 
             json.dump(readers, result, indent=4)
